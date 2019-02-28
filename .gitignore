@@ -1,0 +1,6 @@
+.cproject
+.project
+.settings
+*.o
+includes/*.o
+MC_heatbath
