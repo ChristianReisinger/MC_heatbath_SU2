@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdexcept>
 
 #include "./fields.hh"
 #include "./geometry.hh"
@@ -15,6 +16,9 @@
 // Computes fat links in time direction.
 
 void Fat_Time_Links(double *gauge_field, double *smeared_gauge_field, int T, int L, double time_link_epsilon) {
+	throw std::logic_error("Fat_Time_Links is not implemented.");
+	/*
+
 	int it, ix, iy, iz;
 	double M1[18], M2[18];
 
@@ -100,7 +104,7 @@ void Fat_Time_Links(double *gauge_field, double *smeared_gauge_field, int T, int
 				}
 			}
 		}
-	}
+	}*/
 }
 
 // ********************
@@ -687,6 +691,9 @@ double *HYP_Time_Links_alloc(int T, int L) {
 
 void HYP_Time_Links(double *gauge_field, double *smeared_gauge_field, int T, int L, double time_link_alpha1,
 		double time_link_alpha2, double time_link_alpha3) {
+	throw std::logic_error("HYP_Time_Links is not implemented.");
+
+	/*
 	int it, ix, iy, iz;
 	int mu;
 
@@ -791,6 +798,7 @@ void HYP_Time_Links(double *gauge_field, double *smeared_gauge_field, int T, int
 	free(V2_1_23);
 	free(V2_2_13);
 	free(V2_3_12);
+	*/
 }
 
 // ********************
@@ -798,6 +806,8 @@ void HYP_Time_Links(double *gauge_field, double *smeared_gauge_field, int T, int
 // Performs an APE smearing step.
 
 void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_smearing_alpha) {
+	throw std::logic_error("APE_Smearing_Step is not implemented.");
+	/*
 	int it, ix, iy, iz;
 	double M1[18], M2[18];
 
@@ -1022,7 +1032,7 @@ void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_sme
 		}
 	}
 
-	Gauge_Field_Free(&smeared_gauge_field_old);
+	Gauge_Field_Free(&smeared_gauge_field_old);*/
 }
 
 // ********************
@@ -1030,6 +1040,9 @@ void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_sme
 // Performs an APE smearing step on a given timeslice.
 
 void APE_Smearing_Step_Timeslice(double *smeared_gauge_field, int T, int L, double APE_smearing_alpha, int timeslice) {
+	throw std::logic_error("APE_Smearing_Step_Timeslice is not implemented.");
+
+	/*
 	int ix, iy, iz;
 	double M1[18], M2[18];
 
@@ -1258,7 +1271,7 @@ void APE_Smearing_Step_Timeslice(double *smeared_gauge_field, int T, int L, doub
 		}
 	}
 
-	Gauge_Field_Free(&smeared_gauge_field_old);
+	Gauge_Field_Free(&smeared_gauge_field_old);*/
 }
 
 // ********************

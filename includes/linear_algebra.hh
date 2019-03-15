@@ -27,6 +27,21 @@ inline void co_ti_eq_co(complex *c1, const complex *c2) {
 	c1->re = c1_re;
 }
 
+inline void co_eq_zero(complex *c) {
+	c->re = 0.0;
+	c->im = 0.0;
+}
+
+inline void co_pl_eq_co(complex *c1, const complex *c2) {
+	c1->re += c2->re;
+	c1->im += c2->im;
+}
+
+inline void co_di_eq_re(complex *c, double d) {
+	c->re /= d;
+	c->im /= d;
+}
+
 // ********************
 
 // A = 0.

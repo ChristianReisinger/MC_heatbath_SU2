@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS=-O3
 LIBS = -lm
 
-o_files: fields.o io.o ranlux.o ranlxd.o ranlxs.o Wilson_loops.o #smearing_techniques.o <- still SU(3) !!! 
+o_files: fields.o io.o ranlux.o ranlxd.o ranlxs.o Wilson_loops.o smearing_techniques.o # <- smearing not implemented
 
 fields.o: fields.cc fields.hh
 	${CXX} ${CXXFLAGS} -c -o $@ $<
