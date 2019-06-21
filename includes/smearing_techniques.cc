@@ -46,6 +46,13 @@ void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_sme
 							cm_ti_eq_re(U_new, APE_smearing_alpha);
 						}
 						cm_pl_eq_cm(U_new, unsmeared_gauge_field + ggi_n(it, ix, iy, iz, 4, mu, T, L));
+
+						//Analytically, U_new is of the form (a, b; -b* a), but not numerically. Remove numerical errors:
+						U_new[4] = -U_new[2];
+						U_new[5] = U_new[3];
+						U_new[6] = U_new[0];
+						U_new[7] = -U_new[1];
+
 						cm_proj(U_new);
 					}
 
