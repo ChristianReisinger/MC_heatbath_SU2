@@ -207,11 +207,8 @@ inline void co_eq_tr_cm(complex *c, const double *A) {
 // ********************
 
 // A = Proj_SU2(A).
-
-// Projects a color matrix on SU(2).
-
+// Projects a matrix of the form A = (a, b; -b*, a*) on SU(2).
 // P_{SU(2)}(A) = A / sqrt(det(A)).
-
 inline void cm_proj(double *A) {
 	double _1_sqrt_det =
 			1.0 / sqrt(A[0] * A[0] + A[1] * A[1] + A[2] * A[2] + A[3] * A[3]);
