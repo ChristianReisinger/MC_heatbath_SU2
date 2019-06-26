@@ -47,11 +47,12 @@ void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_sme
 						}
 						cm_pl_eq_cm(U_new, unsmeared_gauge_field + ggi_n(it, ix, iy, iz, 4, mu, T, L));
 
-						//Analytically, U_new is of the form (a, b; -b* a), but not numerically. Remove numerical errors:
+						//Analytically, U_new is of the form (a, b; -b*, a*), but not numerically. Remove numerical errors:
 						U_new[4] = -U_new[2];
 						U_new[5] = U_new[3];
 						U_new[6] = U_new[0];
 						U_new[7] = -U_new[1];
+						//Tested: for U_new  = (a, b; c, d), using (a+d*, b-c*; c-b*, d+a*)/2 gives the same results as using (a, b; -b*, a*)
 
 						cm_proj(U_new);
 					}
