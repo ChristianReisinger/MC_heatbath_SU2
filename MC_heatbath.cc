@@ -11,6 +11,8 @@
 #include <fstream>
 #include <cmath>
 #include <iomanip>
+#include <getopt.h>
+#include <vector>
 
 #include <fields.hh>
 #include <geometry.hh>
@@ -19,10 +21,30 @@
 #include <ranlux.hh>
 #include <Wilson_loops.hh>
 
+#include <helper_functions.hh>
+
 // lattice extensions
 const int T, L;
 
 double* gauge_field;
+
+void handle_bounds_option(int argc, char**& argv, std::vector<int>& bound_ts) {
+
+	static struct option long_opts[] = {
+			{ "fixed-bounds", required_argument, 0, 'f' },
+			{ 0, 0, 0, 0 }
+	};
+	int opt = -1, long_opts_i = 0;
+	while ((opt = getopt_long(argc, argv, "f:", long_opts, &long_opts_i)) != -1) {
+		switch (opt) {
+			case 'f':
+				bound_ts = parse_unsigned_int_list(optarg);
+				break;
+		}
+	}
+	argv = argv + optind;
+
+}
 
 int main(int argc, char **argv) {
 	using namespace std;
@@ -31,6 +53,9 @@ int main(int argc, char **argv) {
 		cout << "Usage: " << argv[0] << " <path> <beta> <T> <L> <seed> <cold/hot> <num_MC_sweeps_max> <num_MC_sweeps_out>\n";
 		return 0;
 	}
+
+	vector<int> bound_ts;
+	handle_bounds_option(argc, argv, bound_ts);
 
 	string path(argv[1]);
 	double beta;
