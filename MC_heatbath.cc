@@ -26,20 +26,24 @@
 // lattice extensions
 const int T, L;
 
-double* gauge_field;
+double *gauge_field;
 
-void handle_bounds_option(int argc, char**& argv, std::vector<int>& bound_ts) {
+void handle_GNU_options(int argc, char **&argv, std::vector<int> &bound_ts, std::string &prefix) {
 
 	static struct option long_opts[] = {
 			{ "fixed-bounds", required_argument, 0, 'f' },
+			{ "prefix", required_argument, 0, 'p' },
 			{ 0, 0, 0, 0 }
 	};
 	int opt = -1, long_opts_i = 0;
 	while ((opt = getopt_long(argc, argv, "f:", long_opts, &long_opts_i)) != -1) {
 		switch (opt) {
-			case 'f':
-				bound_ts = parse_unsigned_int_list(optarg);
-				break;
+		case 'f':
+			bound_ts = parse_unsigned_int_list(optarg);
+			break;
+		case 'p':
+			prefix = optarg;
+			break;
 		}
 	}
 	argv = argv + optind;
@@ -50,28 +54,22 @@ int main(int argc, char **argv) {
 	using namespace std;
 
 	if (argc != 9) {
-		cout << "Usage: " << argv[0] << " <path> <beta> <T> <L> <seed> <cold/hot> <num_MC_sweeps_max> <num_MC_sweeps_out>\n";
+		cout << "Usage: " << argv[0]
+				<< " [(--fixed-bounds | -f) <ts>] [(--prefix | -p) <prfx>] <output_dir> <beta> <T> <L> <seed> (cold | hot | <init_file>) <num_MC_sweeps_max> <num_MC_sweeps_out>\n";
 		return 0;
 	}
 
 	vector<int> bound_ts;
-	handle_bounds_option(argc, argv, bound_ts);
+	string prefix("conf");
+	handle_GNU_options(argc, argv, bound_ts, prefix);
 
 	string path(argv[1]);
 	double beta;
 	int seed, num_MC_sweeps_max, num_MC_sweeps_out;
-	bool hot_start = true;
 
 	stringstream args_ss;
 	args_ss << argv[2] << " " << argv[3] << " " << argv[4] << " " << argv[5] << " " << argv[7] << " " << argv[8];
 	args_ss >> beta >> T >> L >> seed >> num_MC_sweeps_max >> num_MC_sweeps_out;
-
-	if (string(argv[6]) == string("cold")) {
-		hot_start = false;
-	} else if (string(argv[6]) != string("hot")) {
-		cerr << "Error: invalid parameter <cold/hot>\n";
-		return 0;
-	}
 
 	if (beta <= 0.0) {
 		cerr << "Error: beta <= 0.0\n";
@@ -99,12 +97,15 @@ int main(int argc, char **argv) {
 
 	Gauge_Field_Alloc(&gauge_field, T, L);
 
-	if (hot_start) {
+	if (string(argv[6]) == string("hot")) {
 		cout << "Initializing hot start ...\n";
 		Gauge_Field_Random(gauge_field, T, L);
-	} else {
+	} else if (string(argv[6]) == string("cold")) {
 		cout << "Initializing cold start ...\n";
 		Gauge_Field_Unity(gauge_field, T, L);
+	} else {
+		cout << "Initializing config from file ...\n";
+		read_gauge_field(gauge_field, argv[6], T, L);
 	}
 
 	double P = Average_Plaquette(gauge_field, T, L);
@@ -122,10 +123,14 @@ int main(int argc, char **argv) {
 
 	for (int MC_sweep_i = 1; MC_sweep_i <= num_MC_sweeps_max; MC_sweep_i++) {
 		for (int it = 0; it < T; it++) {
+			bool on_boundary = contains(bound_ts, it);
 			for (int ix = 0; ix < L; ix++) {
 				for (int iy = 0; iy < L; iy++) {
 					for (int iz = 0; iz < L; iz++) {
 						for (int mu = 0; mu < 4; mu++) {
+
+							if (on_boundary && mu != 0)
+								continue;
 
 							if (ix == 0 && iy == 0 && iz == 0 && mu == 0) {
 								cout << "sweep = " << setw(config_id_digits) << MC_sweep_i << ", it = " << setw(2) << it
@@ -253,7 +258,7 @@ int main(int argc, char **argv) {
 
 		if (MC_sweep_i % num_MC_sweeps_out == 0) {
 			ostringstream config_filename_oss;
-			config_filename_oss << path << "/conf." << setfill(0) << setw(config_id_digits) << MC_sweep_i;
+			config_filename_oss << path << "/" << prefix << "." << setfill(0) << setw(config_id_digits) << MC_sweep_i;
 
 			ostringstream header_oss(argv[0]);
 			for (int arg_i = 1; arg_i < argc; ++arg_i)
