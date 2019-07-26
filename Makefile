@@ -1,14 +1,28 @@
+SHELL=/bin/bash
+
 CXX=g++
-CXXFLAGS=-O3
-LIBS=-lm
+CXXFLAGS=-std=c++11 -O3
 
-all: MC_heatbath
+BIN_DIR=bin/
+BUILD_DIR=build/
+SRC_DIR=src/
+#INCLUDE_DIR=
 
-MC_heatbath: MC_heatbath.o
-	${CXX} ${CXXFLAGS} -o $@ MC_heatbath.o includes/fields.o includes/io.o includes/ranlux.o includes/ranlxd.o includes/ranlxs.o includes/Wilson_loops.o -I"includes/" ${LIBS}
+#OBJ_NAMES=
+BIN_NAMES=MC_heatbath
 
-MC_heatbath.o: MC_heatbath.cc
-	${CXX} ${CXXFLAGS} -c -o $@ $< -I"includes/"
+#OBJS=${OBJ_NAMES:%=${BUILD_DIR}/%.o}
+TARGETS=${BIN_NAMES:%=${BIN_DIR}/%}
+LIBS=-lm -l:ranlxd.o -l:ranlxs.o
+
+all: ${TARGETS}
+
+${TARGETS}: ${BIN_DIR}/%: ${SRC_DIR}/%.cc #${OBJS} 
+	readarray -d '' deps < <(depfinder.sh . $<);\
+	${CXX} ${CXXFLAGS} -o $@ $^ "$${deps[@]}" ${LIBS}
+	
+#${OBJS}: ${BUILD_DIR}/%.o: ${SRC_DIR}/%.cc  ${INCLUDE_DIR}/%.hh
+#	${CXX} ${CXXFLAGS} -c -o $@ $< -I"${INCLUDE_DIR}" $$(depfinder.sh . $<)
 
 clean:
-	rm -f *~ *.o MC_heatbath
+	rm -f ${BIN_DIR}/* ${BUILD_DIR}/*

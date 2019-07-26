@@ -24,7 +24,7 @@
 #include <helper_functions.hh>
 
 // lattice extensions
-const int T, L;
+int T, L;
 
 double *gauge_field;
 
@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
 
 		if (MC_sweep_i % num_MC_sweeps_out == 0) {
 			ostringstream config_filename_oss;
-			config_filename_oss << path << "/" << prefix << "." << setfill(0) << setw(config_id_digits) << MC_sweep_i;
+			config_filename_oss << path << "/" << prefix << "." << setfill('0') << setw(config_id_digits) << MC_sweep_i;
 
 			ostringstream header_oss(argv[0]);
 			for (int arg_i = 1; arg_i < argc; ++arg_i)
