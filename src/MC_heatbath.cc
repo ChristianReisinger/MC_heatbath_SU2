@@ -53,7 +53,7 @@ void handle_GNU_options(int argc, char **&argv, std::vector<int> &bound_ts, std:
 int main(int argc, char **argv) {
 	using namespace std;
 
-	if (argc < 9 ||  argc > 11) {
+	if (argc < 9 ||  argc > 14) {
 		cout << "Usage: " << argv[0]
 				<< " [(--fixed-bounds | -f) <ts>] [(--prefix | -p) <prfx>] <output_dir> <beta> <T> <L> <seed> (cold | hot | <init_file>) <num_MC_sweeps_max> <num_MC_sweeps_out>\n";
 		return 0;
@@ -131,12 +131,6 @@ int main(int argc, char **argv) {
 
 							if (on_boundary && mu != 0)
 								continue;
-
-							if (ix == 0 && iy == 0 && iz == 0 && mu == 0) {
-								cout << "sweep = " << setw(config_id_digits) << MC_sweep_i << ", it = " << setw(2) << it
-										<< ", ix = " << setw(2) << ix << ", iy = " << setw(2) << iy
-										<< ", iz = " << setw(2) << iz << ", mu = " << mu << " ...\n";
-							}
 
 // Cf. Montvay/Münster, sec. 7.3.1, page 399.
 
