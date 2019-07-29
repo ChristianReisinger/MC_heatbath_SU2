@@ -53,7 +53,7 @@ void handle_GNU_options(int argc, char **&argv, std::vector<int> &bound_ts, std:
 int main(int argc, char **argv) {
 	using namespace std;
 
-	if (argc != 9) {
+	if (argc < 9 ||  argc > 11) {
 		cout << "Usage: " << argv[0]
 				<< " [(--fixed-bounds | -f) <ts>] [(--prefix | -p) <prfx>] <output_dir> <beta> <T> <L> <seed> (cold | hot | <init_file>) <num_MC_sweeps_max> <num_MC_sweeps_out>\n";
 		return 0;
