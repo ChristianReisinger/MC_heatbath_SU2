@@ -36,7 +36,7 @@ void handle_GNU_options(int argc, char **&argv, std::vector<int> &bound_ts, std:
 			{ 0, 0, 0, 0 }
 	};
 	int opt = -1, long_opts_i = 0;
-	while ((opt = getopt_long(argc, argv, "f:", long_opts, &long_opts_i)) != -1) {
+	while ((opt = getopt_long(argc, argv, "f:p:", long_opts, &long_opts_i)) != -1) {
 		switch (opt) {
 		case 'f':
 			bound_ts = parse_unsigned_int_list(optarg);
