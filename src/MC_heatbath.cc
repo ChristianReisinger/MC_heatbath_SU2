@@ -46,7 +46,7 @@ void handle_GNU_options(int argc, char **&argv, std::vector<int> &bound_ts, std:
 			break;
 		}
 	}
-	argv = argv + optind;
+	argv = argv + optind - 1;
 
 }
 
