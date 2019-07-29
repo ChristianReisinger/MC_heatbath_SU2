@@ -18,7 +18,7 @@ LIBS=-lm -l:ranlxd.o -l:ranlxs.o
 all: ${TARGETS}
 
 ${TARGETS}: ${BIN_DIR}/%: ${SRC_DIR}/%.cc #${OBJS} 
-	readarray -d '' deps < <(depfinder.sh . $<);\
+	readarray deps < <(depfinder.sh . $<);\
 	${CXX} ${CXXFLAGS} -o $@ $^ "$${deps[@]}" ${LIBS}
 	
 #${OBJS}: ${BUILD_DIR}/%.o: ${SRC_DIR}/%.cc  ${INCLUDE_DIR}/%.hh
