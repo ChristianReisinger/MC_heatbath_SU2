@@ -8,3 +8,4 @@ bin/
 build/
 includes
 libs
+global_defs_include

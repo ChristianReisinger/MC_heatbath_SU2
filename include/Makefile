@@ -1,6 +1,7 @@
 CXX=g++
 CXXFLAGS=-O3
 LIBS = -lm
+GLOBAL_DEFS_INCLUDE := ${shell sed -e 's/^/-I"/' -e 's/$$/"/' global_defs_include | tr '\n' ' '}
 
 o_files: fields.o io.o ranlux.o ranlxd.o ranlxs.o Wilson_loops.o smearing_techniques.o # <- smearing not implemented
 
@@ -20,7 +21,7 @@ ranlxs.o: ranlxs.h ranlxs.c
 	${CXX} ${CXXFLAGS} -c -o ranlxs.o ranlxs.c
 
 smearing_techniques.o: smearing_techniques.cc smearing_techniques.hh
-	${CXX} ${CXXFLAGS} -c -o $@ $<
+	${CXX} ${CXXFLAGS} -c -o $@ $< ${GLOBAL_DEFS_INCLUDE}
 
 Wilson_loops.o: Wilson_loops.cc Wilson_loops.hh
 	${CXX} ${CXXFLAGS} -c -o $@ $<

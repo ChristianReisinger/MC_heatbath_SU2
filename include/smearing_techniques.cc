@@ -1,10 +1,11 @@
 #include "smearing_techniques.hh"
 
-#include "global_defs.hh"
 #include "fields.hh"
 #include "geometry.hh"
 #include "geometry2.hh"
 #include "linear_algebra.hh"
+
+#include <global_defs.hh>
 
 void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_smearing_alpha) {
 	double *unsmeared_gauge_field;
