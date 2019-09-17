@@ -7,6 +7,7 @@
 
 // Allocates and frees memory for a gauge field (lattice size T * L^3).
 
+void Gauge_Field_Alloc_silent(double **gauge_field, int T, int L);
 void Gauge_Field_Alloc(double **gauge_field, int T, int L);
 
 void Gauge_Field_Alloc_Mu_Fixed(double **gauge_field, int T, int L);

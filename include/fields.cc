@@ -12,14 +12,18 @@
 
 // Allocates and frees memory for a gauge field (lattice size T * L^3).
 
-void Gauge_Field_Alloc(double **gauge_field, int T, int L) {
-	fprintf(stderr, "void Gauge_Field_Alloc(...   -->   Trying to allocate %d M ...",
-			T * L * L * L * 4 * 8 * sizeof(double) / 1000000);
-
+void Gauge_Field_Alloc_silent(double **gauge_field, int T, int L) {
 	if ((*gauge_field = (double *) malloc(T * L * L * L * 4 * 8 * sizeof(double))) == NULL) {
 		fprintf(stderr, "\nError: void Gauge_Field_Alloc(...\n");
 		exit(EXIT_FAILURE);
 	}
+}
+
+void Gauge_Field_Alloc(double **gauge_field, int T, int L) {
+	fprintf(stderr, "void Gauge_Field_Alloc(...   -->   Trying to allocate %d M ...",
+			T * L * L * L * 4 * 8 * sizeof(double) / 1000000);
+
+	Gauge_Field_Alloc_silent(gauge_field, T, L);
 
 	fprintf(stderr, " o.k.\n");
 }

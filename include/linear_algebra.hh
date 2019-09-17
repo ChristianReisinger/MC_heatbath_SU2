@@ -19,8 +19,6 @@ public:
 	double im;
 };
 
-// c1 = c1 * c2.
-
 inline void co_ti_eq_co(complex *c1, const complex *c2) {
 	double c1_re = c1->re * c2->re - c1->im * c2->im;
 	c1->im = c1->re * c2->im + c1->im * c2->re;
@@ -40,6 +38,11 @@ inline void co_pl_eq_co(complex *c1, const complex *c2) {
 inline void co_di_eq_re(complex *c, double d) {
 	c->re /= d;
 	c->im /= d;
+}
+
+inline void co_eq_co_ti_co(complex *c1, const complex *c2, const complex *c3) {
+	c1->re = c2->re * c3->re - c2->im * c3->im;
+	c1->im = c2->re * c3->im + c2->im * c3->re;
 }
 
 // ********************

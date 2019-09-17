@@ -2,5 +2,10 @@
 .project
 .settings
 *.o
-includes/*.o
+include/*.o
 MC_heatbath
+bin/
+build/
+includes
+libs
+global_defs_include
