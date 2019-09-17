@@ -1,4 +1,4 @@
-#include <vector>
+#include <set>
 
 #include <geometry.hh>
 #include <linear_algebra.hh>
@@ -8,9 +8,9 @@
 
 #include <heatbath.hh>
 
-void do_sweep(double* gauge_field, int T, int L, double beta, const std::vector<int>& bound_ts) {
+void do_sweep(double* gauge_field, int T, int L, double beta, const std::set<int>& bound_ts) {
 	for (int it = 0; it < T; it++) {
-		bool on_boundary = contains(bound_ts, it);
+		bool on_boundary = bound_ts.count(it);
 		for (int ix = 0; ix < L; ix++) {
 			for (int iy = 0; iy < L; iy++) {
 				for (int iz = 0; iz < L; iz++) {
