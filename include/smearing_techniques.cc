@@ -8,6 +8,9 @@
 #include <global_defs.hh>
 
 void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_smearing_alpha) {
+	using de_uni_frankfurt_itp::reisinger::latticetools_0719::SUN_elems;
+	using de_uni_frankfurt_itp::reisinger::latticetools_0719::ggi_n;
+
 	double *unsmeared_gauge_field;
 	Gauge_Field_Alloc(&unsmeared_gauge_field, T, L);
 	Gauge_Field_Copy(unsmeared_gauge_field, smeared_gauge_field, T, L);
