@@ -25,6 +25,10 @@
 
 #include <helper_functions.hh>
 
+namespace de_uni_frankfurt_itp {
+namespace reisinger {
+namespace MC_heatbath_SU2 {
+
 void handle_GNU_options(int argc, char **&argv, std::set<int> &bound_ts, std::string &prefix) {
 
 	static struct option long_opts[] = {
@@ -49,8 +53,13 @@ void handle_GNU_options(int argc, char **&argv, std::set<int> &bound_ts, std::st
 
 }
 
+}
+}
+}
+
 int main(int argc, char **argv) {
 	using namespace std;
+	using namespace de_uni_frankfurt_itp::reisinger::MC_heatbath_SU2;
 
 	if (argc < 9 || argc > 14) {
 		cout << "Usage: " << argv[0]
