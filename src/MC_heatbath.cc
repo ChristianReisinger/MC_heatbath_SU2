@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <getopt.h>
 #include <vector>
+#include <set>
 
 #include <fields.hh>
 #include <geometry.hh>
@@ -24,7 +25,7 @@
 
 #include <helper_functions.hh>
 
-void handle_GNU_options(int argc, char **&argv, std::vector<int> &bound_ts, std::string &prefix) {
+void handle_GNU_options(int argc, char **&argv, std::set<int> &bound_ts, std::string &prefix) {
 
 	static struct option long_opts[] = {
 			{ "fixed-bounds", required_argument, 0, 'f' },
@@ -34,8 +35,10 @@ void handle_GNU_options(int argc, char **&argv, std::vector<int> &bound_ts, std:
 	int opt = -1, long_opts_i = 0;
 	while ((opt = getopt_long(argc, argv, "f:p:", long_opts, &long_opts_i)) != -1) {
 		switch (opt) {
-			case 'f':
-				bound_ts = parse_unsigned_int_list(optarg);
+			case 'f': {
+				std::vector<int> bound_ts_vec = parse_unsigned_int_list(optarg);
+				bound_ts = std::set<int>(bound_ts_vec.begin(), bound_ts_vec.end());
+			}
 			break;
 			case 'p':
 				prefix = optarg;
@@ -55,7 +58,7 @@ int main(int argc, char **argv) {
 		return 0;
 	}
 
-	vector<int> bound_ts;
+	set<int> bound_ts;
 	string prefix("conf");
 	handle_GNU_options(argc, argv, bound_ts, prefix);
 
