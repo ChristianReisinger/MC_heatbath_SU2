@@ -40,7 +40,7 @@ void handle_GNU_options(int argc, char **&argv, std::set<int> &bound_ts, std::st
 	while ((opt = getopt_long(argc, argv, "f:p:", long_opts, &long_opts_i)) != -1) {
 		switch (opt) {
 			case 'f': {
-				std::vector<int> bound_ts_vec = parse_unsigned_int_list(optarg);
+				std::vector<int> bound_ts_vec = tools::helper::parse_unsigned_int_list(optarg);
 				bound_ts = std::set<int>(bound_ts_vec.begin(), bound_ts_vec.end());
 			}
 			break;
