@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-O3
+CXXFLAGS=-O3 -D __SUN_N__=2
 LIBS = -lm
 INCLUDE = -I"./"
 INCLUDE_EXT := ${shell sed -e 's/^/-I"/' -e 's/$$/"/' includes | tr '\n' ' '}
