@@ -1,16 +1,16 @@
 #include <set>
 
+#include <helper_functions.hh>
+
 #include <geometry.hh>
 #include <linear_algebra.hh>
 #include <ranlux.hh>
 
-#include <helper_functions.hh>
-
 #include <heatbath.hh>
 
-void do_sweep(double* gauge_field, int T, int L, double beta, const std::set<int>& bound_ts) {
+void do_sweep(double* const gauge_field, int T, int L, double beta, const std::set<int>& fixed_timeslices) {
 	for (int it = 0; it < T; it++) {
-		bool on_boundary = bound_ts.count(it);
+		bool on_boundary = fixed_timeslices.count(it);
 		for (int ix = 0; ix < L; ix++) {
 			for (int iy = 0; iy < L; iy++) {
 				for (int iz = 0; iz < L; iz++) {
