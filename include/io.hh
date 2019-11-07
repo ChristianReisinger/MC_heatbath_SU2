@@ -18,8 +18,8 @@
 
 // h[0], h[1], h[2], h[3] for each link.
 
-void read_gauge_field(double* const gauge_field, const char* filename, const int T, const int L);
+void read_gauge_field(double* gauge_field, const char* filename, const int T, const int L);
 
-void write_gauge_field(const double* const gauge_field, const char* filename, const int T, const int L, const char* header);
+void write_gauge_field(const double* gauge_field, const char* filename, const int T, const int L, const char* header);
 
 #endif
