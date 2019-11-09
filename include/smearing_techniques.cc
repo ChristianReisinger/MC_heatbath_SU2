@@ -1,6 +1,5 @@
 #include "smearing_techniques.hh"
 
-#include "fields.hh"
 #include "geometry.hh"
 #include "geometry2.hh"
 #include "linear_algebra.hh"
@@ -8,11 +7,10 @@
 #include <global_defs.hh>
 
 void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_smearing_alpha) {
-	using de_uni_frankfurt_itp::reisinger::latticetools_0719::SUN_elems;
-	using de_uni_frankfurt_itp::reisinger::latticetools_0719::ggi_n;
+	using namespace de_uni_frankfurt_itp::reisinger::latticetools_0719;
 
 	double *unsmeared_gauge_field;
-	Gauge_Field_Alloc(&unsmeared_gauge_field, T, L);
+	Gauge_Field_Alloc(unsmeared_gauge_field, T, L);
 	Gauge_Field_Copy(unsmeared_gauge_field, smeared_gauge_field, T, L);
 
 	double U[SUN_elems], V[SUN_elems];
@@ -61,5 +59,5 @@ void APE_Smearing_Step(double *smeared_gauge_field, int T, int L, double APE_sme
 						cm_proj(U_new);
 					}
 
-	Gauge_Field_Free(&unsmeared_gauge_field);
+	Gauge_Field_Free(unsmeared_gauge_field);
 }
