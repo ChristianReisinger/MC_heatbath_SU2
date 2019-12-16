@@ -16,6 +16,7 @@ inline int get_index(const int t, const int x, const int y, const int z, const i
 }
 
 inline int get_index_timeslice(const int x, const int y, const int z, const int T, const int L) {
+	(void) T;
 	int xx = (x + L) % L;
 	int yy = (y + L) % L;
 	int zz = (z + L) % L;
@@ -24,6 +25,8 @@ inline int get_index_timeslice(const int x, const int y, const int z, const int 
 }
 
 inline int get_index_timeslice_t(const int t, const int x, const int y, const int z, const int T, const int L) {
+	(void) t;
+	(void) T;
 	int xx = (x + L) % L;
 	int yy = (y + L) % L;
 	int zz = (z + L) % L;
@@ -50,6 +53,7 @@ inline int get_index_plaquette2D(const int con, const int pla_parallel, const in
 
 inline int get_index_res(const int pla_parallel, const int pla_vertical1, const int WL_R, const int R_parallel,
 		const int R_vertical) {
+	(void) R_vertical;
 	return ((pla_vertical1) * ((WL_R + 1) / 2 + R_parallel) + (pla_parallel + R_parallel));
 }
 
